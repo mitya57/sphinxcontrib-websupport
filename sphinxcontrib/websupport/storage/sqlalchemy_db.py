@@ -5,7 +5,7 @@ SQLAlchemy table and mapper definitions used by the
 
 from __future__ import annotations
 
-from datetime import datetime, timezone
+from datetime import datetime
 
 from sqlalchemy import Boolean, Column, DateTime, ForeignKey, Integer, String, Text
 from sqlalchemy.orm import aliased, declarative_base, relationship, sessionmaker
@@ -159,7 +159,7 @@ class Comment(Base):  # type: ignore[misc,valid-type]
         """Creates a serializable representation of the comment. This is
         converted to JSON, and used on the client side.
         """
-        delta = datetime.now(tz=timezone.utc) - self.time
+        delta = datetime.now() - self.time  # noqa: DTZ005
 
         time = {
             "year": self.time.year,
